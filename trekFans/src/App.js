@@ -1,21 +1,76 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
 
-class App extends Component {
+class FanForm extends React.Component {
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <tr>
+        <td>
+          <input type="text" className="form-control" />
+        </td>
+        <td>
+          <input type="text" className="form-control" />
+        </td>
+        <td>
+          <input type="text" className="form-control" />
+        </td>
+        <td>
+          <input type="button" className="btn btn-primary" value="Add" />
+        </td>
+      </tr>
+    )
+  }
+}
+
+class Fan extends React.Component {
+  render() {
+    return (
+      <tr >
+        {/* TODO */}
+      </tr>
+    );
+  }
+}
+
+class FanList extends React.Component {
+  render() {
+    var fanRows = null;  // TODO
+    return (
+      <tbody >
+        {fanRows}
+        <FanForm fans={this.props.fans}/>
+      </tbody>
+    );
+  }
+}
+
+class FansTable extends React.Component {
+  render() {
+    return (
+      <table className="table table-bordered">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Fan Name</th>
+            <th>Phone Number</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <FanList />
+      </table>
+    );
+  }
+}
+
+class FansApp extends React.Component {
+  render() {
+    return (
+      <div>
+        <h1>Fan List.</h1>
+        <FansTable fans={this.props.fans} />
       </div>
     );
   }
 }
 
-export default App;
+export default FansApp;
