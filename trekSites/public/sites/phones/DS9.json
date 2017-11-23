@@ -1,0 +1,30 @@
+{
+
+    "Best Show": {
+
+        "Season 4": "The Visitor "
+
+
+
+    },
+
+    "id": "Deep Space Nine",
+    "images": [
+        "pics/sisco.jpg",
+        "pics/odo.jpg",
+        "pics/quark.jpg",
+        "pics/kira.jpg"
+
+    ],
+
+    "Crew": {
+
+        "Captain": "Sisko",
+        "First Officer": "Odo",
+        "Doctor": "Quark",
+        "Engineer": "Kira"
+
+    }
+
+
+}

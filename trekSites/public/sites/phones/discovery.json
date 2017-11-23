@@ -1,0 +1,30 @@
+{
+
+    "BestShow": {
+
+        "Season 1": " Magic to Make the Sanest Man Go Mad "
+
+
+
+    },
+
+    "id": "Discovery",
+    "images": [
+        "pics/lorca.jpg",
+        "pics/Dfirstofficer.jpg",
+        "pics/Ddoctor.jpg",
+        "pics/Dofficer.jpg"
+
+    ],
+
+    "Crew": {
+
+        "Captain": "lorca",
+        "First Officer": "unknown",
+        "Doctor": "Unknown",
+        "Engineer": "Unknown"
+
+    }
+
+
+}

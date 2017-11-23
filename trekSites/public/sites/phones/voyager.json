@@ -1,0 +1,30 @@
+{
+
+    "Best Show": {
+
+        "Season 4": "Year of Hell, Parts 1 and 2 "
+
+
+
+    },
+
+    "id": "Voyager",
+    "images": [
+        "pics/kathryn.jpg",
+        "pics/chakotay.jpg",
+        "pics/doctor.jpg",
+        "pics/nine.jpg"
+
+    ],
+
+    "Crew": {
+
+        "Captain": "Kathryn",
+        "First Officer": "Chakotay",
+        "Doctor": "AI",
+        "Engineer": "Seven of Nine"
+
+    }
+
+
+}

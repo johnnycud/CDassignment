@@ -1,0 +1,29 @@
+{
+
+    "Best Show": {
+
+        "Season 1": "The City on the Edge of Forever "
+
+
+
+    },
+
+    "id": "dell-venue",
+    "images": [
+        "pics/picard.jpg",
+        "pics/riker.jpg",
+        "pics/beverly.jpg",
+        "pics/jordi.jpg"
+
+    ],
+
+    "Crew": {
+
+        "Captain": "James Kirk",
+        "First Officer": "Spock",
+        "Doctor": "Bones",
+        "Engineer": "Scotty",
+        "Communications": "Aurora"
+    }
+
+}

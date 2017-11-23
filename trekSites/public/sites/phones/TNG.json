@@ -1,0 +1,28 @@
+{
+    "Best Show": {
+
+        "Season 2": "THE MEASURE OF A MAN "
+
+
+
+    },
+
+    "id": "dell-venue",
+    "images": [
+        "pics/picard.jpg",
+        "pics/riker.jpg",
+        "pics/beverly.jpg",
+        "pics/jordi.jpg"
+
+    ],
+
+    "Crew": {
+
+        "Captain": "Jean luc picard",
+        "First Officer": "Will Riker",
+        "Doctor": "Beverly",
+        "Engineer": "Jordi"
+
+    }
+
+}

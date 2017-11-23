@@ -1,0 +1,30 @@
+{
+
+    "Best Show": {
+
+        "Season 4": " In a Mirror, Darkly, Parts 18 and 19 "
+
+
+
+    },
+
+    "id": "Enterprise",
+    "images": [
+        "pics/archer.jpg",
+        "pics/tpol.jpg",
+        "pics/phlox.jpg",
+        "pics/engineer.jpg"
+
+    ],
+
+    "Crew": {
+
+        "Captain": "Archer",
+        "First Officer": "T-Pol",
+        "Doctor": "Phlox",
+        "Engineer": "Unknown"
+
+    }
+
+
+}
