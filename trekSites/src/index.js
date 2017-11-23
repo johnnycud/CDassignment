@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import SiteApp from './App';
+import '../node_modules/bootstrap/dist/css/bootstrap.css';
+import Sites from './Data';
 
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+ReactDOM.render(
+    <SiteApp sites={Sites} />,
+    document.getElementById('root')
+);
