@@ -1,5 +1,5 @@
 import React from 'react';
-
+import api from './test/stubAPI' 
 class FanForm extends React.Component {
   render() {
     return (
@@ -74,7 +74,7 @@ class FansTable extends React.Component {
             <th></th>
           </tr>
         </thead>
-        <FanList />
+        <FanList fans={this.props.fans}/>
       </table>
     );
   }
@@ -82,10 +82,11 @@ class FansTable extends React.Component {
 
 class FansApp extends React.Component {
   render() {
+    var fans = api.getAll();
     return (
       <div>
         <h1>Fan List.</h1>
-        <FansTable fans={this.props.fans} />
+        <FansTable fans={fans} />
       </div>
     );
   }
