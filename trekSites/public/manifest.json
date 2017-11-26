@@ -1,9 +1,9 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Trek App",
+  "name": "Star Trek sites and cast",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "treklogo.ico",
       "sizes": "192x192",
       "type": "image/png"
     }

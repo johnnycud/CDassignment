@@ -16,7 +16,14 @@ var buttons = {
         rightButtonVal: 'Cancel',
         leftButtonColor: 'btn-danger',
         rightButtonColor: 'btn-success'
-    }
+    },
+
+    add: {
+        leftButtonVal: 'Undo',
+        rightButtonVal: 'Confirm',
+        leftButtonColor: 'btn-success',
+        rightButtonColor: 'btn-danger'
+    },
 }
 
 export default buttons;

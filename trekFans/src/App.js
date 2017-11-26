@@ -26,11 +26,13 @@ class FanForm extends React.Component {
 class Fan extends React.Component {
   state = {
     status: '',
-    name: this.props.fan.name,
-    fan_name: this.props.fan.fan_name,
-    phone_number: this.props.fan.phone_number
+    name: this.props.fans.name,
+    fan_name: this.props.fans.fan_name,
+    phone_number: this.props.fans.phone_number
   };
   handleEdit = () => this.setState({ status: 'edit' });
+
+  handleAdd = () => this.setState({status : 'add'});
 
   handleSave = (e) => {
     e.preventDefault();
@@ -83,6 +85,22 @@ class Fan extends React.Component {
           value={this.state.phone_number}
           onChange={this.handlePhoneNumChange} /> </td>,
       ];
+    if (this.state.status === 'add') {
+      activeButtons = buttons.normal;
+      leftButtonHandler = this.handleConfirm;
+      rightButtonHandler = this.handleUndo;
+      fields = [
+        <td key={'name'}><input type="text" className="form-control"
+          value={this.state.name}
+          onChange={this.handleNameChange} /> </td>,
+        <td key={'fan_name'}><input type="text" className="form-control"
+          value={this.state.fan_name}
+          onChange={this.handleFanNameChange} /> </td>,
+        <td key={'phone_number'}><input type="text" className="form-control"
+          value={this.state.phone_number}
+          onChange={this.handlePhoneNumChange} /> </td>,
+      ];
+    
     return (
       <tr >
         {fields}
@@ -97,7 +115,8 @@ class Fan extends React.Component {
             onClick={rightButtonHandler} />
         </td>
       </tr>
-    );
+      );
+    }
   }
 }
 };
@@ -106,7 +125,7 @@ class Fan extends React.Component {
 class FanList extends React.Component {
   render() {
     let fanRows = this.props.fans.map((c) => {
-      return <Fan key={c.phone_number} contact={c}
+      return <Fan key={c.phone_number} fan={c}
         updateHandler={this.props.updateHandler} />;  
     });
 return (
