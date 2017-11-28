@@ -1,5 +1,5 @@
 import React from 'react';
-import api from './test/stubAPI' 
+import api from './test/stubAPI'
 import buttons from './config/buttonsConfig';
 
 class FanForm extends React.Component {
@@ -32,7 +32,7 @@ class Fan extends React.Component {
   };
   handleEdit = () => this.setState({ status: 'edit' });
 
-  handleAdd = () => this.setState({status : 'add'});
+  handleAdd = () => this.setState({ status: 'add' });
 
   handleSave = (e) => {
     e.preventDefault();
@@ -45,7 +45,7 @@ class Fan extends React.Component {
     this.setState({ status: '' })
     this.props.updateHandler(this.props.contact.phone_number,
       name, fan_name, phone_number);
-  }; 
+  };
 
   handleCancel = function () {
     this.setState({
@@ -54,7 +54,7 @@ class Fan extends React.Component {
       address: this.props.fan.fan_name,
       phone_number: this.props.fan.phone_number
     });
-  }.bind(this);    
+  }.bind(this);
 
   handleNameChange = (e) => this.setState({ name: e.target.value });
 
@@ -85,54 +85,54 @@ class Fan extends React.Component {
           value={this.state.phone_number}
           onChange={this.handlePhoneNumChange} /> </td>,
       ];
-    if (this.state.status === 'add') {
-      activeButtons = buttons.normal;
-      leftButtonHandler = this.handleConfirm;
-      rightButtonHandler = this.handleUndo;
-      fields = [
-        <td key={'name'}><input type="text" className="form-control"
-          value={this.state.name}
-          onChange={this.handleNameChange} /> </td>,
-        <td key={'fan_name'}><input type="text" className="form-control"
-          value={this.state.fan_name}
-          onChange={this.handleFanNameChange} /> </td>,
-        <td key={'phone_number'}><input type="text" className="form-control"
-          value={this.state.phone_number}
-          onChange={this.handlePhoneNumChange} /> </td>,
-      ];
-    
-    return (
-      <tr >
-        {fields}
-        <td>
-          <input type="button" className={'btn ' + activeButtons.leftButtonColor}
-            value={activeButtons.leftButtonVal}
-            onClick={leftButtonHandler} />
-        </td>
-        <td>
-          <input type="button" className={'btn ' + activeButtons.rightButtonColor}
-            value={activeButtons.rightButtonVal}
-            onClick={rightButtonHandler} />
-        </td>
-      </tr>
-      );
+      if (this.state.status === 'add') {
+        activeButtons = buttons.normal;
+        leftButtonHandler = this.handleConfirm;
+        rightButtonHandler = this.handleUndo;
+        fields = [
+          <td key={'name'}><input type="text" className="form-control"
+            value={this.state.name}
+            onChange={this.handleNameChange} /> </td>,
+          <td key={'fan_name'}><input type="text" className="form-control"
+            value={this.state.fan_name}
+            onChange={this.handleFanNameChange} /> </td>,
+          <td key={'phone_number'}><input type="text" className="form-control"
+            value={this.state.phone_number}
+            onChange={this.handlePhoneNumChange} /> </td>,
+        ];
+
+        return (
+          <tr >
+            {fields}
+            <td>
+              <input type="button" className={'btn ' + activeButtons.leftButtonColor}
+                value={activeButtons.leftButtonVal}
+                onClick={leftButtonHandler} />
+            </td>
+            <td>
+              <input type="button" className={'btn ' + activeButtons.rightButtonColor}
+                value={activeButtons.rightButtonVal}
+                onClick={rightButtonHandler} />
+            </td>
+          </tr>
+        );
+      }
     }
   }
-}
 };
-    
+
 
 class FanList extends React.Component {
   render() {
     let fanRows = this.props.fans.map((c) => {
       return <Fan key={c.phone_number} fan={c}
-        updateHandler={this.props.updateHandler} />;  
+        updateHandler={this.props.updateHandler} />;
     });
-return (
-  <tbody >
-      {fanRows}
-      <FanForm fans={this.props.fans}/>
-  </tbody>
+    return (
+      <tbody >
+        {fanRows}
+        <FanForm fans={this.props.fans} />
+      </tbody>
     );
   }
 }
@@ -151,27 +151,58 @@ class FansTable extends React.Component {
           </tr>
         </thead>
         <FanList fans={this.props.fans}
-            updateHandler={this.props.updateHandler} />
+          updateHandler={this.props.updateHandler} />
       </table>
     );
   }
 }
-
-class FansApp extends React.Component {
-  updateContact = (key, n, a, p) => {
-    api.update(key, n, a, p);
-    this.setState({});
-  };
-  render() {
-    var fans = api.getAll();
-    return (
-      <div>
-        <h1>Fan List.</h1>
-        <FansTable fans={fans} 
-          updateHandler={this.updateFan}/>
-      </div>
-    );
+class FansAPP extends React.Component {
+  var FansApp = React.createClass({
+  componentDidMount: function () {
+    var p = api.getAll();
+    p.then(response => {
+      localStorage.clear();
+      localStorage.setItem('fans', JSON.stringify(response));
+      this.setState({});
+    }
   }
+});
+
+updateContact: function(key, n, a, p) {
+  api.update(1234, n, a, p)
+    .then(response => {
+      return api.getAll()
+    })
+    .then(response => {
+      localStorage.clear();
+      localStorage.setItem('contacts', JSON.stringify(response));
+      this.setState({});
+    })
+    .catch(error => { console.log(`Update failed for ${error}`) });
 }
+
+deleteContact: function(k) {
+  api.delete(k)
+    .then(response => {
+      return api.getAll()
+    })
+    .then(response => {
+      localStorage.clear();
+      localStorage.setItem('fans', JSON.stringify(response));
+      this.setState({});
+    });            
+  }
+render: function() {
+  var fans = localStorage.getItem('fans');
+  JSON.parse(localStorage.getItem('fans')), [];
+  return (
+    <div>
+      <h1>Fan List.</h1>
+      <FansTable fans={fans}
+        updateHandler={this.updateFan} />
+    </div>
+  );
+}
+
 
 export default FansApp;

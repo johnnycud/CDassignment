@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import api from './test/stubAPI';
+import buttons from './config/buttonsConfig';
 
 class Form extends React.Component {
   state = { title: '', link: '' };
@@ -25,10 +26,44 @@ class Form extends React.Component {
   }
 };
 
-class NewsItem extends React.Component {
+class Blogg extends React.Component {
+  state = {
+    status: '',
+    title: this.props.bloggs.title,
+    link: this.props.bloggs.link
+  };
+  handleBlogg = () => this.setState({ status: 'blogg' });
+
+
   handleVote = () => this.props.upvoteHandler(this.props.blogg.id);
 
+  handleSave = (e) => {
+    e.preventDefault();
+    let title = this.state.title.trim();
+    let link = this.state.link.trim();
+    if (!title || !link ) {
+      return;
+    }
+    this.setState({ status: '' })
+    this.props.updateHandler(this.props.blogg.id,
+      title, link);
+  };
+
+  handleCancel = function () {
+    this.setState({
+      status: '',
+      name: this.props.blogg.title,
+      address: this.props.blogg.link
+    });
+  }.bind(this);
+
+  handleTitleChange = (e) => this.setState({ title: e.target.value });
+
+  handleLinkChange = (e) => this.setState({ link: e.target.value });
+
   render() {
+    let activeButtons = buttons.normal;
+    let leftButtonHandler = this.handleEdit;
     let lineStyle = {
       fontSize: '20px', marginLeft: '10px'
     };
@@ -40,6 +75,23 @@ class NewsItem extends React.Component {
     } else {
       line = <span>{this.props.blogg.title} </span>;
     }
+    let fields = [
+      <td key={'title'} >{this.state.title}</td>,
+      <td key={'link'}>{this.state.link}</td>
+    ];
+
+    if (this.state.status === 'blogg') {
+      activeButtons = buttons.normal;
+      leftButtonHandler = this.handleConfirm;
+     
+      fields = [
+        <td key={'title'}><input type="text" className="form-control"
+          value={this.state.title}
+          onChange={this.handleTitleChange} /> </td>,
+        <td key={'link'}><input type="text" className="form-control"
+          value={this.state.link}
+          onChange={this.handleFanNameChange} /> </td>,
+      ];
     return (
       <div >
         <span className="glyphicon glyphicon-thumbs-up"
@@ -50,48 +102,56 @@ class NewsItem extends React.Component {
           <a href={'#/bloggs/' + this.props.blogg.id}>Comments</a>
         </span>
         </span>
+        {fields}
+        <td>
+          <input type="button" className={'btn ' + activeButtons.leftButtonColor}
+            value={activeButtons.leftButtonVal}
+            onClick={leftButtonHandler} />
+        </td>
       </div>
-    );
+      );
+    }
   }
 }
 
-class NewsList extends React.Component {
+class BloggList extends React.Component {
   render() {
     let items = this.props.bloggs.map((blogg, index) => {
-      return <NewsItem key={index}
+      return <Blogg key={index}
         blogg={blogg}
         upvoteHandler={this.props.upvoteHandler} />;
     })
+    let bloggRows = this.props.bloggs.map((c) => {
+      return <Blogg key={c.index} blogg={c}
+        updateHandler={this.props.updateHandler} />;
+    });
     return (
       <div>
-        {items}
+        {items}{bloggRows}
+        <Form bloggs={this.props.bloggs} />
       </div>
     );
   } 
 }
-    class BloggApp extends React.Component {
+class BloggApp extends React.Component {
   incrementUpvote = (id) => {
     api.upvote(id);
     this.setState({});
   };
-
+  updateContact = (key, n, a ) => {
+    api.update(key, n, a );
+    this.setState({});
+  };
   render() {
     let bloggs = _.sortBy(api.getAll(), function (blogg) {
       return - blogg.upvotes;
     }
     );
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col-md-6 col-md-offset-3">
-            <div className="page-header">
-              <h1>Blogg News</h1>
-              <NewsList bloggs={bloggs}
-                upvoteHandler={this.incrementUpvote} />
-              <Form />
-            </div>
-          </div>
-        </div>
+      <div>
+        <h1>Blogg List.</h1>
+        <BloggList bloggs={bloggs}
+          updateHandler={this.updateFan} />
       </div>
     );
   }

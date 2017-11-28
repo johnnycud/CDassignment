@@ -30,16 +30,24 @@ class StubAPI {
         ];
     }
 
-    delete(k) {
-        let elements = _.remove(this.fans,
-            (fan) => fan.phone_number === k
-        );
-        return elements;
+    delete: function(k) {
+        var promise = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                var elements = _.remove(fans,
+                    function (fan) {
+                        return fan.phone_number === k;
+                    });
+                return resolve(elements)
+            }, 1000);
+        }) ;
+        return promise ;
     }
-    getAll() {
-        return this.fans;
+    getAll : function() {
+        var promise = new Promise((resolve, reject) => {
+            setTimeout(() => resolve(fans), 1000);
+        }) ;
+        return promise ;
     }
-
     add(n, a, p) {
         let len = this.fans.length;
         let newLen = this.fans.push({
@@ -48,16 +56,21 @@ class StubAPI {
         return newLen > len;
     }
 
-    update(key, n, a, p) {
-        var index = _.findIndex(this.fans,
-            (fan) => fan.phone_number === key
-        );
-        if (index !== -1) {
-            this.fans.splice(index, 1,
-                { name: n, fan_name: a, phone_number: p });
-            return true;
-        }
-        return false;
+    update: function(key, n, a, p) {
+        var promise = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                var index = _.findIndex(fans, function (fan) {
+                    return fan.phone_number === key;
+                });
+                if (index !== -1) {
+                    fans.splice(index, 1, { name: n, address: a, phone_number: p });
+                    resolve(true);
+                } else {
+                    reject(key);
+                }
+            }, 1000);
+        });
+        return promise ;
     }
 
 }
