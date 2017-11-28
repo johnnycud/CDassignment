@@ -157,52 +157,52 @@ class FansTable extends React.Component {
   }
 }
 class FansAPP extends React.Component {
-  var FansApp = React.createClass({
-  componentDidMount: function () {
-    var p = api.getAll();
-    p.then(response => {
-      localStorage.clear();
-      localStorage.setItem('fans', JSON.stringify(response));
-      this.setState({});
+    var FansApp = React.createClass({
+    componentDidMount: function () {
+      var p = api.getAll();
+      p.then(response => {
+        localStorage.clear();
+        localStorage.setItem('fans', JSON.stringify(response));
+        this.setState({});
+      }
     }
-  }
-});
+  });
 
-updateContact: function(key, n, a, p) {
-  api.update(1234, n, a, p)
-    .then(response => {
-      return api.getAll()
+  updateContact: function(key, n, a, p) {
+    api.update(1234, n, a, p)
+      .then(response => {
+        return api.getAll()
     })
-    .then(response => {
-      localStorage.clear();
-      localStorage.setItem('contacts', JSON.stringify(response));
-      this.setState({});
-    })
-    .catch(error => { console.log(`Update failed for ${error}`) });
-}
+      .then(response => {
+        localStorage.clear();
+        localStorage.setItem('fans', JSON.stringify(response));
+        this.setState({});
+      })
+      .catch(error => { console.log(`Update failed for ${error}`) });
+    }
 
-deleteContact: function(k) {
-  api.delete(k)
-    .then(response => {
-      return api.getAll()
-    })
-    .then(response => {
-      localStorage.clear();
-      localStorage.setItem('fans', JSON.stringify(response));
-      this.setState({});
-    });            
+  deleteFan: function(k) {
+    api.delete(k)
+      .then(response => {
+        return api.getAll()
+      })
+      .then(response => {
+        localStorage.clear();
+        localStorage.setItem('fans', JSON.stringify(response));
+        this.setState({});
+      });            
   }
-render: function() {
-  var fans = localStorage.getItem('fans');
-  JSON.parse(localStorage.getItem('fans')), [];
+  render: function() {
+    var fans = localStorage.getItem('fans');
+    JSON.parse(localStorage.getItem('fans')), [];
   return (
     <div>
       <h1>Fan List.</h1>
       <FansTable fans={fans}
         updateHandler={this.updateFan} />
     </div>
-  );
+    );
+  }
 }
-
 
 export default FansApp;

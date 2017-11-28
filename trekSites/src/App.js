@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.css';
 import _ from 'lodash';
+import Sites from './Data';
+import { Link } from 'react-router';
 
 class SelectSite extends React.Component {
   handleChange = (e, type, value) => {
@@ -16,7 +18,12 @@ class SelectSite extends React.Component {
     this.handleChange(e, 'sort', e.target.value);
   };
 
-  render() {
+  render: function(){
+    let list = Sites.filter((p) => {
+      return p.name.toLowerCase().search(
+        this.state.search.toLowerCase()) !== -1;
+    });
+    let filteredList = _.sortBy(list, this.state.sort) ;
     return (
       <div className="col-md-10">
         <input type="text" placeholder="Search"
@@ -34,19 +41,17 @@ class SelectSite extends React.Component {
 }
 class SiteItem extends React.Component {
   render() {
-    let url = process.env.PUBLIC_URL + '/siteSpecs/' + this.props.site.imageUrl;
     return (
       <li className="thumbnail site-listing">
-        <a href={'/sites/' + this.props.site.id} className="thumb">
-          <img src={url}
-            alt={this.props.site.name} />
-        </a>
-        <a href={'/sites/' + this.props.site.id}> {this.props.site.name}</a>
+        <Link to={'/sites/' + this.props.site.id} className="thumb">
+          <img src={"/siteSpecs/" + this.props.site.imageUrl}
+            alt={this.props.site.name} /> </Link>
+        <Link to={'/sites/' + this.props.site.id}> {this.props.site.name}</Link>
         <p>{this.props.site.snippet}</p>
       </li>
     );
   }
-}
+};
     
 class SiteList extends React.Component {
   render() {
