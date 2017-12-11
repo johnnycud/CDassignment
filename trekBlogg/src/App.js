@@ -20,7 +20,7 @@ class Form extends React.Component {
             className="form-control" placeholder="Link"
             value={this.state.link} ></input>
         </div>
-        <button type="submit" className="btn btn-primary" >blogg</button>
+        <button type="submit" className="btn btn-primary" >Blogg</button>
       </form>
     );
   }
